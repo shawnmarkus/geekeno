@@ -30,24 +30,38 @@
         <div style="overflow-y: auto; height: 350px">
           <div class="m-3" *ngFor="let task of taskArr">
             <div class="p-2 shadow border" id="tasks">
-              <div class="input-group row ps-3">
-                <div class="card col-md-10 border-0 h-100 align-self-center">
+              <div class="input-group row ps-3 container-fluid">
+                <div class="card col-md-9 border-0 h-100 align-self-center">
                   {{ task.task_name }}
                 </div>
-                <button
-                  class="btn btn-outline-primary col me-2"
-                  data-bs-toggle="modal"
-                  type="button"
-                  data-bs-target="#exampleModal"
-                  (click)="call(task)"
-                >
-                  edit
-                </button>
-                <div
-                  class="btn btn-outline-danger col"
-                  (click)="deleteTask(task)"
-                >
-                  delete
+
+                <div class="mt-2 col-md-3 d-flex align-c-center">
+                  <button
+                    class="btn btn-outline-secondary col me-2 mb-1"
+                    data-bs-toggle="modal"
+                    type="button"
+                    data-bs-target="#exampleModal2"
+                    (click)="call(task)"
+                  >
+                    View
+                  </button>
+
+                  <button
+                    class="btn btn-outline-primary col me-2 mb-1"
+                    data-bs-toggle="modal"
+                    type="button"
+                    data-bs-target="#exampleModal"
+                    (click)="call(task)"
+                  >
+                    edit
+                  </button>
+
+                  <div
+                    class="btn btn-outline-danger col mb-1"
+                    (click)="deleteTask(task)"
+                  >
+                    delete
+                  </div>
                 </div>
               </div>
             </div>
@@ -89,6 +103,42 @@
                   >
                     Update
                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- modal 2 for view  -->
+        <div
+          class="modal fade"
+          id="exampleModal2"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel2"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Task</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="m-4">
+                  <div class="p-2">
+                    <b>Task Name:</b> &nbsp; {{ taskObj.task_name }}
+                  </div>
+                  <div class="p-2">
+                    <b>Task Description:</b> &nbsp; {{ taskObj.task_detail }}
+                  </div>
+                  <div class="p-2">
+                    <b>Is Task Done:</b> &nbsp; {{ taskObj.task_done }}
+                  </div>
                 </div>
               </div>
             </div>
