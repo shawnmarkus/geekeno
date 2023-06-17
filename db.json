@@ -2,11 +2,21 @@
   "tasks": [
     {
       "id": 2,
-      "task_name": "fuck off"
+      "task_name": "go gym ",
+      "task_done": true,
+      "task_detail": "make the rejection the power to better your tomorrow"
     },
     {
-      "id": 3,
-      "task_name": "kya hua tera wada"
+      "id": 4,
+      "task_name": "my name is khan",
+      "task_done": false,
+      "task_detail": "I live in ballia district and i have many dreams to acheive"
+    },
+    {
+      "id": 5,
+      "task_name": "varanasi tour",
+      "task_done": true,
+      "task_detail": "we spent almost 12000 on 8 guys but had lot of fun that day"
     }
   ]
 }
