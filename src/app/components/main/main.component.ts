@@ -11,14 +11,16 @@ export class MainComponent implements OnInit {
   taskObj: Task = new Task();
   taskArr: Task[] = [];
 
-  addTaskValue: string = '';
+  addTaskName: string = '';
+  addTaskDetail: string = '';
   editTaskValue: EditTask = new EditTask();
 
   constructor(private crudService: CrudService) {}
 
   ngOnInit(): void {
     this.editTaskValue = new EditTask();
-    this.addTaskValue = '';
+    this.addTaskName = '';
+    this.addTaskDetail = '';
     this.taskObj = new Task();
     this.taskArr = [];
     this.getAllTask();
@@ -35,7 +37,8 @@ export class MainComponent implements OnInit {
   }
 
   addTask() {
-    this.taskObj.task_name = this.addTaskValue;
+    this.taskObj.task_name = this.addTaskName;
+    this.taskObj.task_detail = this.addTaskDetail;
     this.crudService.addTask(this.taskObj).subscribe({
       next: (v) => console.log(v),
       error: (e) => {
@@ -43,28 +46,20 @@ export class MainComponent implements OnInit {
       },
       complete: () => {
         this.ngOnInit();
-        this.addTaskValue = '';
+        this.addTaskName = '';
+        this.addTaskDetail = '';
       },
     });
   }
 
   editTask() {
-    // console.log(
-    //   'before : ',
-    //   this.editTaskValue,
-    //   ' and ',
-    //   this.taskObj.task_name
-    // );
+    // console.log('before : ', this.editTaskValue, ' and ', this.taskObj);
+
     this.taskObj.task_name = this.editTaskValue.task_name;
     this.taskObj.task_detail = this.editTaskValue.task_detail;
     this.taskObj.task_done = this.editTaskValue.task_done;
 
-    // console.log(
-    //   'after : ',
-    //   this.editTaskValue,
-    //   ' and ',
-    //   this.taskObj.task_name
-    // );
+    // console.log('after : ', this.editTaskValue, ' and ', this.taskObj);
 
     this.crudService.editTask(this.taskObj).subscribe({
       complete: () => {
@@ -93,6 +88,5 @@ export class MainComponent implements OnInit {
     this.editTaskValue.task_detail = etask.task_detail;
     this.editTaskValue.task_name = etask.task_name;
     this.editTaskValue.task_done = etask.task_done;
-    // console.log(this.editTaskValue);
   }
 }
