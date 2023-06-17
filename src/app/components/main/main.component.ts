@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from 'src/app/model/task';
+import { Task, EditTask } from 'src/app/model/task';
 import { CrudService } from 'src/app/services/crud.service';
 
 @Component({
@@ -12,12 +12,12 @@ export class MainComponent implements OnInit {
   taskArr: Task[] = [];
 
   addTaskValue: string = '';
-  editTaskValue: string = '';
+  editTaskValue: EditTask = new EditTask();
 
   constructor(private crudService: CrudService) {}
 
   ngOnInit(): void {
-    this.editTaskValue = '';
+    this.editTaskValue = new EditTask();
     this.addTaskValue = '';
     this.taskObj = new Task();
     this.taskArr = [];
@@ -49,23 +49,25 @@ export class MainComponent implements OnInit {
   }
 
   editTask() {
-    console.log(
-      'before : ',
-      this.editTaskValue,
-      ' and ',
-      this.taskObj.task_name
-    );
-    this.taskObj.task_name = this.editTaskValue;
+    // console.log(
+    //   'before : ',
+    //   this.editTaskValue,
+    //   ' and ',
+    //   this.taskObj.task_name
+    // );
+    this.taskObj.task_name = this.editTaskValue.task_name;
+    this.taskObj.task_detail = this.editTaskValue.task_detail;
+    this.taskObj.task_done = this.editTaskValue.task_done;
 
-    console.log(
-      'after : ',
-      this.editTaskValue,
-      ' and ',
-      this.taskObj.task_name
-    );
+    // console.log(
+    //   'after : ',
+    //   this.editTaskValue,
+    //   ' and ',
+    //   this.taskObj.task_name
+    // );
 
     this.crudService.editTask(this.taskObj).subscribe({
-      next: () => {
+      complete: () => {
         this.ngOnInit();
       },
 
@@ -88,7 +90,9 @@ export class MainComponent implements OnInit {
 
   call(etask: Task) {
     this.taskObj = etask;
-    this.editTaskValue = etask.task_name;
-    console.log(this.editTaskValue);
+    this.editTaskValue.task_detail = etask.task_detail;
+    this.editTaskValue.task_name = etask.task_name;
+    this.editTaskValue.task_done = etask.task_done;
+    // console.log(this.editTaskValue);
   }
 }
