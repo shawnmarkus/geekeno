@@ -4,3 +4,9 @@ export class Task {
   task_done: boolean = false;
   task_detail: string = '';
 }
+
+export class EditTask {
+  task_name: string = '';
+  task_done: boolean = false;
+  task_detail: string = '';
+}
