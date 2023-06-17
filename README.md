@@ -14,7 +14,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Server
+### Server
 
 used `JSON-SERVER`. To run it add it globally using the `npm i -g json-server`
 then run `json-server --watch db.json` on other terminal
