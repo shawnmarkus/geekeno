@@ -87,23 +87,47 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <div class="input-group p-4">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter task "
-                    name="task"
-                    [(ngModel)]="editTaskValue"
-                  />
-                  <button
-                    class="btn btn-outline-success"
-                    type="button"
-                    data-bs-dismiss="modal"
-                    (click)="editTask()"
-                  >
-                    Update
-                  </button>
-                </div>
+                <!-- <div class="input-group p-4"> -->
+                <label class="fw-bold mb-1" for="taskName">Task name : </label>
+                <input
+                  type="text"
+                  class="form-control mb-4"
+                  placeholder="Enter task "
+                  name="task"
+                  id="taskName"
+                  [(ngModel)]="editTaskValue"
+                />
+
+                <label class="fw-bold mb-1" for="taskName"
+                  >Task Description :
+                </label>
+                <input
+                  type="text"
+                  class="form-control mb-4"
+                  placeholder="Enter task "
+                  name="task"
+                  id="taskName"
+                  [(ngModel)]="editTaskValue"
+                />
+
+                <label class="fw-bold mb-1" for="taskName">isDone : </label>
+                <input
+                  type="text"
+                  class="form-control mb-4"
+                  placeholder="Enter task "
+                  name="task"
+                  id="taskName"
+                  [(ngModel)]="editTaskValue"
+                />
+                <button
+                  class="btn btn-outline-success"
+                  type="button"
+                  data-bs-dismiss="modal"
+                  (click)="editTask()"
+                >
+                  Update
+                </button>
+                <!-- </div> -->
               </div>
             </div>
           </div>
