@@ -21,6 +21,15 @@ export class CrudService {
     return this.http.get<Task[]>(this.serviceURL);
   }
 
+  // get the filtered taskList
+  getAllDoneTask(): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.serviceURL}?task_done=true`);
+  }
+  getAllNotDoneTask(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.serviceURL + '?task_done=false');
+  }
+  // end filtering section
+
   deleteTask(task: Task): Observable<Task> {
     return this.http.delete<Task>(this.serviceURL + '/' + task.id);
   }

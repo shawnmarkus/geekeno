@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Task, EditTask } from 'src/app/model/task';
 import { CrudService } from 'src/app/services/crud.service';
 
@@ -10,6 +10,7 @@ import { CrudService } from 'src/app/services/crud.service';
 export class MainComponent implements OnInit {
   taskObj: Task = new Task();
   taskArr: Task[] = [];
+  selectedFilter: string = 'all';
 
   addTaskName: string = '';
   addTaskDetail: string = '';
@@ -17,19 +18,66 @@ export class MainComponent implements OnInit {
 
   constructor(private crudService: CrudService) {}
 
+  onOptionChange(option: string): void {
+    // Perform actions based on the selected option
+    if (option === 'all') {
+      this.getAllTask();
+    } else if (option === 'done') {
+      this.getAllDoneTask();
+    } else if (option === 'not_done') {
+      this.getAllNotDoneTask();
+    }
+  }
+
   ngOnInit(): void {
     this.editTaskValue = new EditTask();
     this.addTaskName = '';
     this.addTaskDetail = '';
     this.taskObj = new Task();
     this.taskArr = [];
-    this.getAllTask();
+
+    if (this.selectedFilter === 'all') {
+      this.getAllTask();
+    } else if (this.selectedFilter === 'done') {
+      this.getAllDoneTask();
+    } else {
+      this.getAllNotDoneTask();
+    }
   }
+
+  getAllNotDoneTask() {
+    this.crudService.getAllNotDoneTask().subscribe({
+      next: (res) => {
+        this.taskArr = res;
+        console.log('the all not done task list ', res);
+      },
+      complete: () => console.log('not done list '),
+      error: (err) => {
+        alert('Unable to get list of tasks ');
+      },
+    });
+  }
+
+  getAllDoneTask() {
+    this.crudService.getAllDoneTask().subscribe({
+      next: (res) => {
+        this.taskArr = res;
+        console.log('the all done task list ', res);
+      },
+      complete: () => console.log(' done list '),
+      error: (err) => {
+        alert('Unable to get list of tasks ');
+      },
+    });
+  }
+
   getAllTask() {
     this.crudService.getAllTask().subscribe({
       next: (res) => {
         this.taskArr = res;
+        console.log('the all task list ', res);
       },
+      complete: () => console.log('complete list '),
       error: (err) => {
         alert('Unable to get list of tasks ');
       },
@@ -53,13 +101,9 @@ export class MainComponent implements OnInit {
   }
 
   editTask() {
-    // console.log('before : ', this.editTaskValue, ' and ', this.taskObj);
-
     this.taskObj.task_name = this.editTaskValue.task_name;
     this.taskObj.task_detail = this.editTaskValue.task_detail;
     this.taskObj.task_done = this.editTaskValue.task_done;
-
-    // console.log('after : ', this.editTaskValue, ' and ', this.taskObj);
 
     this.crudService.editTask(this.taskObj).subscribe({
       complete: () => {
