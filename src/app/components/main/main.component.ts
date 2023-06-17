@@ -24,14 +24,14 @@ export class MainComponent implements OnInit {
     this.getAllTask();
   }
   getAllTask() {
-    this.crudService.getAllTask().subscribe(
-      (res) => {
+    this.crudService.getAllTask().subscribe({
+      next: (res) => {
         this.taskArr = res;
       },
-      (err) => {
-        alert('Unable to get list of tasks');
-      }
-    );
+      error: (err) => {
+        alert('Unable to get list of tasks ');
+      },
+    });
   }
 
   addTask() {
@@ -49,11 +49,26 @@ export class MainComponent implements OnInit {
   }
 
   editTask() {
+    console.log(
+      'before : ',
+      this.editTaskValue,
+      ' and ',
+      this.taskObj.task_name
+    );
     this.taskObj.task_name = this.editTaskValue;
+
+    console.log(
+      'after : ',
+      this.editTaskValue,
+      ' and ',
+      this.taskObj.task_name
+    );
+
     this.crudService.editTask(this.taskObj).subscribe({
-      complete: () => {
+      next: () => {
         this.ngOnInit();
       },
+
       error: (err) => {
         alert('Failed to update task ' + err);
       },
@@ -62,7 +77,7 @@ export class MainComponent implements OnInit {
 
   deleteTask(etask: Task) {
     this.crudService.deleteTask(etask).subscribe({
-      complete: () => {
+      next: () => {
         this.ngOnInit();
       },
       error: (err) => {
@@ -74,5 +89,6 @@ export class MainComponent implements OnInit {
   call(etask: Task) {
     this.taskObj = etask;
     this.editTaskValue = etask.task_name;
+    console.log(this.editTaskValue);
   }
 }
