@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Task, EditTask } from 'src/app/model/task';
 import { CrudService } from 'src/app/services/crud.service';
 
