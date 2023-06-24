@@ -1,0 +1,220 @@
+<div class="container-fluid bg-light">
+  <div class="container bg-light">
+    <div class="row mt-4" style="height: 500px">
+      <div class="col-md-12 bg-white mt-4 shadow">
+        <div class="card bg-dark mt-4 mb-4">
+          <h4 class="text-white p-3 m-0">To Do App</h4>
+        </div>
+
+        <div class="shadow p-4">
+          <!-- <div class="input-group p-4"> -->
+          <input
+            type="text"
+            class="form-control shadow-none mb-2"
+            placeholder="Enter task  name"
+            name="task"
+            [(ngModel)]="addTaskName"
+          />
+
+          <input
+            type="text"
+            class="form-control shadow-none mb-2"
+            placeholder="Enter task  detail"
+            name="task"
+            [(ngModel)]="addTaskDetail"
+          />
+
+          <button
+            class="btn btn-outline-success"
+            type="button"
+            (click)="addTask()"
+          >
+            add
+          </button>
+          <!-- </div> -->
+        </div>
+
+        <div class="pe-4 d-flex justify-content-between">
+          <h4 class="text-primary m-4">Tasks :</h4>
+          <div class="align-self-center d-flex">
+            <label for="filter" class="align-self-center me-4">Filter</label>
+
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              [(ngModel)]="selectedFilter"
+              (change)="onOptionChange(selectedFilter)"
+            >
+              <option value="all" selected>All</option>
+              <option value="done">Done</option>
+              <option value="not_done">Not Done</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-y: auto; height: 350px">
+          <div class="m-3 mt-0" *ngFor="let task of taskArr">
+            <div
+              class="p-2 shadow border"
+              [class.bg-info]="task.task_done"
+              id="tasks"
+            >
+              <div class="input-group row ps-3 container-fluid">
+                <div class="card col-md-9 border-0 h-100 align-self-center">
+                  {{ task.task_name }}
+                </div>
+
+                <div class="mt-2 col-md-3 d-flex align-c-center">
+                  <button
+                    class="btn btn-outline-secondary col me-2 mb-1"
+                    data-bs-toggle="modal"
+                    type="button"
+                    data-bs-target="#exampleModal2"
+                    (click)="call(task)"
+                  >
+                    View
+                  </button>
+
+                  <button
+                    class="btn btn-outline-primary col me-2 mb-1"
+                    data-bs-toggle="modal"
+                    type="button"
+                    data-bs-target="#exampleModal"
+                    (click)="call(task)"
+                  >
+                    edit
+                  </button>
+
+                  <div
+                    class="btn btn-outline-danger col mb-1"
+                    (click)="deleteTask(task)"
+                  >
+                    delete
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <!-- <div class="input-group p-4"> -->
+                <label class="fw-bold mb-1" for="taskName">Task name : </label>
+                <input
+                  type="text"
+                  class="form-control mb-4"
+                  placeholder="Enter task "
+                  name="task"
+                  id="taskName"
+                  [(ngModel)]="editTaskValue.task_name"
+                />
+
+                <label class="fw-bold mb-1" for="taskName"
+                  >Task Description :
+                </label>
+                <input
+                  type="text"
+                  class="form-control mb-4"
+                  placeholder="Enter task "
+                  name="task"
+                  id="taskName"
+                  [(ngModel)]="editTaskValue.task_detail"
+                />
+
+                <label class="fw-bold mb-1" for="taskName">isDone : </label>
+                <div class="d-flex">
+                  <section class="me-4 mb-4">
+                    <input
+                      type="radio"
+                      id="selectTrue"
+                      name="fav_language"
+                      [value]="true"
+                      class="me-2"
+                      [(ngModel)]="editTaskValue.task_done"
+                    />
+                    <label for="selectTrue">true</label><br />
+                  </section>
+
+                  <section class="me-4 mb-4">
+                    <input
+                      type="radio"
+                      id="selectFalse"
+                      name="fav_language"
+                      [value]="false"
+                      class="me-2"
+                      [(ngModel)]="editTaskValue.task_done"
+                    />
+                    <label for="selectFalse">false</label><br />
+                  </section>
+                </div>
+                <button
+                  class="btn btn-outline-success"
+                  type="button"
+                  data-bs-dismiss="modal"
+                  (click)="editTask()"
+                >
+                  Update
+                </button>
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- modal 2 for view  -->
+        <div
+          class="modal fade"
+          id="exampleModal2"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel2"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Task</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="m-4">
+                  <div class="p-2">
+                    <b>Task Name:</b> &nbsp; {{ taskObj.task_name }}
+                  </div>
+                  <div class="p-2">
+                    <b>Task Description:</b> &nbsp; {{ taskObj.task_detail }}
+                  </div>
+                  <div class="p-2">
+                    <b>Is Task Done:</b> &nbsp; {{ taskObj.task_done }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
